@@ -1,0 +1,21 @@
+aberturas_encerramento: Aberturas e encerramentos por mês.
+
+encerrados_complexidade: Encerramentos por complexidade (N1, N2, N3).
+
+custo_medio_por_demanda: Custo médio por demanda, por senioridade e mês.
+
+encerramentos_cargo: Encerramentos por cargo/senioridade.
+
+vol_cargo_complexidade: Volume de tarefas por cargo/senioridade e complexidade.
+
+tma_cargo_complexidade: Tempo Médio de Atendimento (TMA) por cargo/senioridade e complexidade.
+
+lead_time: Tempo de entrega por complexidade e mês.
+
+area_options: Lista de áreas operacionais disponíveis.
+
+Requisitos:
+    Todos os valores devem ser corretos e correspondentes aos períodos e categorias indicados.
+    JSON deve seguir exatamente o formato especificado.
+    Registros relacionados a datas devem estar em ordem cronológica.
+    Incluir registros com valor 0 quando não houver dados disponíveis.

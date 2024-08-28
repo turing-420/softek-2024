@@ -1,0 +1,56 @@
+{
+    "aberturas_encerramento": [
+        {
+            "ANOMES_REF": 202401,  // Ano e mês de referência (ex.: 202401)
+            "ABERTURAS": 284,      // Número de aberturas
+            "ENCERRAMENTO": 272,   // Número de encerramentos
+            "%_ADERENCIA": 95.8    // Porcentagem de aderência
+        }
+    ],
+    "encerrados_complexidade": [
+        {
+            "ANOMES_STATUS": 202401,  // Ano e mês do status (ex.: 202401)
+            "N1": 211,                // Número de encerrados N1
+            "N2": 7,                  // Número de encerrados N2
+            "N3": 54                  // Número de encerrados N3
+        }
+    ],
+    "custo_medio_por_demanda": [
+        {
+            "SENIORIDADE": "Bg",     // Nível de senioridade (ex.: "Bg", "Ex", "Jr", "Pr", "Sr")
+            "ANOMES_STATUS": 202401, // Ano e mês do status (ex.: 202401)
+            "CUSTO_MEDIO": 15.0      // Custo médio
+        }
+    ],
+    "encerramentos_cargo": [
+        {
+            "SENIORIDADE": "Bg",     // Nível de senioridade
+            "ANOMES_STATUS": 202401, // Ano e mês do status
+            "ENCERRAMENTOS": 3       // Número de encerramentos
+        }
+    ],
+    "vol_cargo_complexidade": [
+        {
+            "SENIORIDADE": "Bg",    // Nível de senioridade
+            "COMPLEXIDADE": "N1",   // Nível de complexidade
+            "VOLUME": 158.0         // Volume de tarefas
+        }
+    ],
+    "tma_cargo_complexidade": [
+        {
+            "SENIORIDADE": "Bg",    // Nível de senioridade
+            "COMPLEXIDADE": "N1",   // Nível de complexidade
+            "TMA": 2.2              // Tempo Médio de Atendimento (TMA)
+        }
+    ],
+    "lead_time": [
+        {
+            "ANOMES_STATUS": 202401,   // Ano e mês do status
+            "COMPLEXIDADE": "D0",      // Nível de complexidade
+            "LEAD_TIME": 106           // Tempo de entrega
+        }
+    ],
+    "area_options": [
+        "Compras", "Custos", "Dev", "Financeiro" // Lista de áreas operacionais
+    ]
+}

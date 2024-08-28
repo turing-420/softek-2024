@@ -1,0 +1,61 @@
+[Logo Turing]
+Introdução (0:00 - 0:10)
+[Consultores trabalhando intensamente, dashboards de TI dinâmicos, e equipes de análise de dados em ação.]
+"Bom dia a todos. 
+Somos a Turing, e hoje trazemos para a Softtek uma solução que vai revolucionar a gestão de capacidade, demanda do Service Desk e contratos AMS."
+
+Problemas Identificados (0:10 - 0:30)
+[Gráficos complexos, tabelas de dados, e indicadores de performance baixa.]
+"A Softtek enfrenta desafios significativos na alocação de consultores para chamados em andamento, controle dos custos operacionais, e na previsibilidade das alocações futuras.
+Esses fatores impactam diretamente a eficiência operacional e elevam os custos de serviço."
+
+Nossa Solução (0:30 - 0:50)
+[Arquitetura da solução, fluxos de dados em tempo real e uso de machine learning.]
+"Para transformar esses desafios, desenvolvemos uma solução preditiva (usando o algoritmo Prophet[?]) e um dashboard interativo, alimentado por IA[?],
+Que oferece uma visão estratégica da capacidade e demanda, otimizando recursos e maximizando a eficiência."
+
+Funcionalidades do Dashboard (0:50 - 1:00)
+[Interface do dashboard com filtros e gráficos dinâmicos.]
+"Nosso dashboard permite a personalização completa,
+com filtros dinâmicos (por ano/mês, senioridade, área de atuação, e complexidade das demandas,)
+garantindo a flexibilidade necessária para decisões estratégicas."
+
+Destaques dos Gráficos (1:00 - 1:50)
+Aberturas x Encerramento (1:00 - 1:10):
+[Gráfico 'aberturas x encerramento'] 
+"Visualize o volume de demandas abertas e encerradas ao longo do tempo, monitorando a eficiência e a taxa de resolução."
+
+Encerrados x Complexidade (1:10 - 1:20):
+[Gráfico 'encerrados x complexidade'] 
+"Análise detalhada do volume de demandas resolvidas por nível de complexidade, facilitando a alocação de recursos especializados."
+
+Cargo x Custo Médio por Demanda (1:20 - 1:30):
+[Gráfico 'cargo x custo médio por demanda'] 
+"Compare os custos médios de encerramento por cargo, permitindo decisões baseadas em dados para otimização de recursos."
+
+Encerramentos x Cargo (1:30 - 1:40):
+[Gráfico 'encerramentos x cargo'] 
+"Monitore o desempenho mensal dos consultores, identificando padrões e áreas de melhoria."
+
+Vol x Cargo/Complexidade (1:40 - 1:50):
+[Heatmap 'vol x cargo/complexidade'] 
+"Nosso heatmap revela a relação entre cargos e complexidade das demandas, com cores condicionais para fácil interpretação."
+
+Distribuição e Previsão de Demandas (1:50 - 2:30)
+[Animações mostrando o modelo de previsão de demandas e o processo de distribuição eficiente.]
+"(Através do modelo Prophet[?]), prevemos o volume de novas demandas com até 30 dias de antecedência,
+ ajustando automaticamente a distribuição de recursos e garantindo a alocação mais eficiente possível."
+
+Impacto e Benefícios (2:30 - 2:40)
+[Métricas de sucesso, gráficos de melhora de performance, e times engajados.]
+"Com a nossa solução, a Softtek poderá reduzir custos operacionais em até 30%,
+aumentar a aderência ao SLA em 40%, e otimizar a alocação de equipe em 25%,
+transformando desafios em oportunidades de crescimento."
+
+Conclusão e Encerramento (2:40 - 3:00)
+[Equipes colaborando, gráficos de performance melhorada, e logos da Softtek e Turing lado a lado.]
+("A parceria entre Turing e Softtek abre novas fronteiras para uma gestão de recursos mais inteligente e eficiente.
+Junte-se a nós nesta jornada de transformação digital, onde cada decisão é guiada por dados e inovação."[meh])
+
+Encerramento (3:00)
+[Logos da Softtek e Turing com o slogan: "Transformando o futuro, juntos."]

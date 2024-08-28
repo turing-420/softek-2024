@@ -1,0 +1,274 @@
+{
+    "aberturas_encerramento": [
+        {
+            "ANOMES_REF": 202401,
+            "ABERTURAS": 284,
+            "ENCERRAMENTO": 272,
+            "%_ADERENCIA": 95.8
+        },
+        {
+            "ANOMES_REF": 202402,
+            "ABERTURAS": 238,
+            "ENCERRAMENTO": 203,
+            "%_ADERENCIA": 85.3
+        },
+        {
+            "ANOMES_REF": 202403,
+            "ABERTURAS": 187,
+            "ENCERRAMENTO": 214,
+            "%_ADERENCIA": 114.4
+        },
+        {
+            "ANOMES_REF": 202404,
+            "ABERTURAS": 4,
+            "ENCERRAMENTO": 0,
+            "%_ADERENCIA": 0.0
+        }
+    ],
+    "encerrados_complexidade": [
+        {
+            "ANOMES_STATUS": 202401,
+            "N1": 211,
+            "N2": 7,
+            "N3": 54
+        },
+        {
+            "ANOMES_STATUS": 202402,
+            "N1": 153,
+            "N2": 19,
+            "N3": 31
+        },
+        {
+            "ANOMES_STATUS": 202403,
+            "N1": 178,
+            "N2": 9,
+            "N3": 27
+        }
+    ],
+    "custo_medio_por_demanda": [
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202401,
+            "CUSTO_MEDIO": 15.0
+        },
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202402,
+            "CUSTO_MEDIO": 13.64
+        },
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202403,
+            "CUSTO_MEDIO": 13.64
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202401,
+            "CUSTO_MEDIO": 83.13
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202402,
+            "CUSTO_MEDIO": 81.82
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202403,
+            "CUSTO_MEDIO": 77.53
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202401,
+            "CUSTO_MEDIO": 25.0
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202402,
+            "CUSTO_MEDIO": 22.73
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202403,
+            "CUSTO_MEDIO": 22.73
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202401,
+            "CUSTO_MEDIO": 55.97
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202402,
+            "CUSTO_MEDIO": 46.48
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202403,
+            "CUSTO_MEDIO": 50.85
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202401,
+            "CUSTO_MEDIO": 71.65
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202402,
+            "CUSTO_MEDIO": 60.99
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202403,
+            "CUSTO_MEDIO": 64.91
+        }
+    ],
+    "encerramentos_cargo": [
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202401,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202402,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Bg",
+            "ANOMES_STATUS": 202403,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202401,
+            "ENCERRAMENTOS": 2
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202402,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Ex",
+            "ANOMES_STATUS": 202403,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202401,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202402,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Jr",
+            "ANOMES_STATUS": 202403,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202401,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202402,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Pr",
+            "ANOMES_STATUS": 202403,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202401,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202402,
+            "ENCERRAMENTOS": 3
+        },
+        {
+            "SENIORIDADE": "Sr",
+            "ANOMES_STATUS": 202403,
+            "ENCERRAMENTOS": 3
+        }
+    ],
+    "vol_cargo_complexidade": [
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N1", "VOLUME": 158.0},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N1", "VOLUME": 20.0},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N1", "VOLUME": 167.0},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N1", "VOLUME": 75.0},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N1", "VOLUME": 122.0},
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N2", "VOLUME": 12.0},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N2", "VOLUME": 0.0},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N2", "VOLUME": 14.0},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N2", "VOLUME": 3.0},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N2", "VOLUME": 6.0},
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N3", "VOLUME": 5.0},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N3", "VOLUME": 12.0},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N3", "VOLUME": 9.0},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N3", "VOLUME": 6.0},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N3", "VOLUME": 80.0}
+    ],
+    "tma_cargo_complexidade": [
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N1", "TMA": 2.2},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N1", "TMA": 14.3},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N1", "TMA": 3.8},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N1", "TMA": 7.4},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N1", "TMA": 7.7},
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N2", "TMA": 1.3},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N2", "TMA": 10.4},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N2", "TMA": 4.2},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N2", "TMA": 6.0},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N2", "TMA": 11.3},
+   {"SENIORIDADE": "Bg", "COMPLEXIDADE": "N3", "TMA": 2.9},
+   {"SENIORIDADE": "Ex", "COMPLEXIDADE": "N3", "TMA": 9.3},
+   {"SENIORIDADE": "Jr", "COMPLEXIDADE": "N3", "TMA": 11.2},
+   {"SENIORIDADE": "Pr", "COMPLEXIDADE": "N3", "TMA": 13.9},
+   {"SENIORIDADE": "Sr", "COMPLEXIDADE": "N3", "TMA": 10.0}
+    ],
+    "lead_time": [
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D0", "LEAD_TIME": 106},
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D1", "LEAD_TIME": 12},
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D2", "LEAD_TIME": 3},
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D3", "LEAD_TIME": 3},
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D4", "LEAD_TIME": 11},
+    {"ANOMES_STATUS": 202401, "COMPLEXIDADE": "D5+", "LEAD_TIME": 137},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D0", "LEAD_TIME": 85},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D1", "LEAD_TIME": 5},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D2", "LEAD_TIME": 3},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D3", "LEAD_TIME": 8},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D4", "LEAD_TIME": 6},
+    {"ANOMES_STATUS": 202402, "COMPLEXIDADE": "D5+", "LEAD_TIME": 96},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D0", "LEAD_TIME": 86},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D1", "LEAD_TIME": 31},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D2", "LEAD_TIME": 1},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D3", "LEAD_TIME": 8},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D4", "LEAD_TIME": 4},
+    {"ANOMES_STATUS": 202403, "COMPLEXIDADE": "D5+", "LEAD_TIME": 84}
+    ],
+    "area_options": [
+    "Compras",
+    "Custos",
+    "Depósito",
+    "Dev",
+    "Fiscal",
+    "Financeiro",
+    "Infra",
+    "Manutenção",
+    "Produção",
+    "Vendas",
+    "BI",
+    "Qualidade",
+    "Fluxo Aprovação",
+    "N1",
+    "N2",
+    "N3"
+    ]
+}
