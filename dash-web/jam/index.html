@@ -93,26 +93,36 @@
     </select>
 </div>
 
-    <div class="chart-grid">
-        <div class="chart-container">
-            <canvas id="abertura-encerramento-chart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="encerrados-complexidade-chart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="cargo-custo-chart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="encerramentos-cargo-chart"></canvas>
-        </div>
-        <div class="chart-container">
-            <div id="vol-cargo-complexidade-chart"></div>
-        </div>
-        <div class="chart-container">
-            <div id="tma-cargo-complexidade-chart"></div>
-        </div>
+<div class="chart-grid">
+    <div class="chart-container">
+        <p>Mostra a comparação entre o número de aberturas e encerramentos de tarefas ao longo do tempo.</p>
+        <canvas id="abertura-encerramento-chart"></canvas>
     </div>
+    <div class="chart-container">
+        <p>Apresenta o número de tarefas encerradas de acordo com diferentes níveis de complexidade.</p>
+        <canvas id="encerrados-complexidade-chart"></canvas>
+    </div>
+    <div class="chart-container">
+        <p>Mostra o custo médio por senioridade para diferentes cargos ao longo do tempo.</p>
+        <canvas id="cargo-custo-chart"></canvas>
+    </div>
+    <div class="chart-container">
+        <p>Ilustra o número de tarefas encerradas, agrupadas por nível de senioridade dos funcionários.</p>
+        <canvas id="encerramentos-cargo-chart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h4>VOL x CARGO/COMPLEXIDADE</h4>
+        <p>Distribuição do volume de trabalho por complexidade e nível de senioridade.</p>
+        <div id="vol-cargo-complexidade-chart"></div>
+    </div>
+    <div class="chart-container">
+        <h4>TMA x CARGO/COMPLEXIDADE</h4>
+        <p>Apresenta o tempo médio de atendimento (TMA) por complexidade e cargo.</p>
+        <div id="tma-cargo-complexidade-chart"></div>
+    </div>
+</div>
+
+
     <div id="leadtime-table"></div>
 </div>
 
