@@ -123,13 +123,13 @@
             <canvas id="encerrados-complexidade-chart"></canvas>
         </div>
         <div class="chart-container">
-            <h4>CARGO x CUSTO MÉDIO POR DEMANDA</h4>
-            <p>Mostra o custo médio por senioridade para diferentes cargos ao longo do tempo.</p>
+            <h4>SENIORIDADE x CUSTO MÉDIO POR DEMANDA</h4>
+            <p>Mostra o custo médio por senioridade ao longo do tempo.</p>
             <canvas id="cargo-custo-chart"></canvas>
         </div>
         <div class="chart-container">
-            <h4>ENCERRAMENTOS x CARGO</h4>
-            <p>Ilustra o número de tarefas encerradas, agrupadas por nível de senioridade dos funcionários.</p>
+            <h4>ENCERRAMENTOS x SENIORIDADE</h4>
+            <p>Ilustra o número de tarefas encerradas, agrupadas por senioridade dos funcionários.</p>
             <canvas id="encerramentos-cargo-chart"></canvas>
         </div>
         <!--    Removido para simplificar o dashboard     
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded',async () => {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'ENCERRAMENTOS x CARGO'
+                        text: 'Encerramentos x Senioridade'
                     },
                     legend: {
                         display: true
@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded',async () => {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'CARGO x CUSTO MÉDIO POR DEMANDA'
+                        text: 'Senioridade x Custo Médio por Demanda'
                     },
                     legend: {
                         display: true
