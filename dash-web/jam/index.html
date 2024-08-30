@@ -34,12 +34,14 @@
     h1 {
         color: #003366;
         margin: 0;
+        font-size: 2em;
+        margin-left: 10px;
     }
 
     .filters {
         display: flex;
         justify-content: space-between;
-        gap: 10px;
+        gap: 6px;
         margin-bottom: 20px;
     }
 
@@ -72,6 +74,21 @@
         border: 1px solid #e0e0e0;
         border-radius: 5px;
         background-color: #fff;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        .chart-grid {
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+        font-size: 1.2rem;
+        }
+        .container {
+        width: 86%;
+        margin: 20px auto;
+        }
     }
     </style>
 </head>
