@@ -111,7 +111,6 @@ select {
     background-color: #fff;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
     .chart-grid {
         display: flex;
@@ -123,5 +122,27 @@ select {
     .container {
     width: 86%;
     margin: 20px auto;
+    }
+}
+
+@media (max-width: 420px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+    .chart-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    .chart-container {
+        width: 95%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+        overflow-x: auto;
     }
 }
