@@ -56,6 +56,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+        margin-bottom: 20px;
     }
 
     .chart-container {
@@ -128,48 +129,83 @@
         -->
     </div>
 
-    <div id="leadtime-table">
+    <div class="chart-container">
         <h4>LEADTIME</h4>
         <p>Apresenta o tempo total decorrido desde o início até o fim de um processo ou tarefa, segmentado por complexidade e nível de senioridade dos funcionários.</p>
+        <table>
+            <div id="leadtime-table">
+            </div>
+        </table>
     </div>
+
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const dataFiles = ['cubo1_consolidado.json', 'cubo2_consolidado.json', 'cubo3_alocacao_recursos.json'];
+document.addEventListener('DOMContentLoaded',async () => {
+    const dataFiles = [
+    './data/aberturas_encerrados.json',
+    './data/encerrados_complexidade.json',
+    './data/senioridade_custo.json',
+    './data/leadtime_mes_a_mes.json',
+    './data/acompanhamento_da_redistribuicao.json',
+    './data/encerramento_senioridade.json'
+    ];
     let cuboData = { cubo1Data: [], cubo2Data: [], cubo3Data: [] };
     let chartInstances = {};
 
     async function loadJSONData(filePaths) {
-        try {
-            const promises = filePaths.map(filePath => fetch(filePath).then(response => response.json()));
-            const [cubo1Data, cubo2Data, cubo3Data] = await Promise.all(promises);
-            console.log('Data loaded successfully:', { cubo1Data, cubo2Data, cubo3Data });
-            return { cubo1Data, cubo2Data, cubo3Data };
-        } catch (error) {
-            console.error('Error loading JSON data:', error);
-            return { cubo1Data: [], cubo2Data: [], cubo3Data: [] };
-        }
+    try {
+        const promises = filePaths.map(filePath => fetch(filePath).then(response => response.json()));
+        const [aberturasEncerradosData, encerradosComplexidadeData, senioridadeCustoData, leadtimeMesData, acompanhamentoRedistribuicaoData, encerramentoSenioridadeData] = await Promise.all(promises);
+        
+        console.log('Data loaded successfully:', { aberturasEncerradosData, encerradosComplexidadeData, senioridadeCustoData, leadtimeMesData, acompanhamentoRedistribuicaoData, encerramentoSenioridadeData });
+        
+        return {
+            cubo1Data: aberturasEncerradosData,
+            cubo2Data: encerradosComplexidadeData,
+            cubo3Data: leadtimeMesData,
+            senioridadeCustoData: senioridadeCustoData,
+            acompanhamentoRedistribuicaoData: acompanhamentoRedistribuicaoData,
+            encerramentoSenioridadeData: encerramentoSenioridadeData
+        };
+    } catch (error) {
+        console.error('Error loading JSON data:', error);
+        return {
+            cubo1Data: [],
+            cubo2Data: [],
+            cubo3Data: [],
+            senioridadeCustoData: [],
+            acompanhamentoRedistribuicaoData: [],
+            encerramentoSenioridadeData: []
+        };
     }
+}
 
     function updateFilters() {
-    if (!cuboData) return;
+        if (!cuboData) return;
 
-    const anomesOptions = cuboData.cubo2Data ? [...new Set(cuboData.cubo2Data.map(row => row.ANOMES_STATUS))] : [];
-    const senioridadeOptions = cuboData.cubo2Data ? [...new Set(cuboData.cubo2Data.map(row => row.SENIORIDADE))] : [];
-    const complexidadeOptions = cuboData.cubo2Data ? [...new Set(cuboData.cubo2Data.map(row => row.COMPLEXIDADE))] : [];
-    const areaOptions = cuboData.cubo1Data ? [...new Set(cuboData.cubo1Data.map(row => row.ATRIBUTO))] : [];
+        const anomesOptions = cuboData.cubo1Data ? [...new Set(cuboData.cubo1Data.map(row => row.ANOMES_REF))] : [];
 
-    updateSelectOptions('anomes-filter', anomesOptions);
-    updateSelectOptions('senioridade-filter', senioridadeOptions);
-    updateSelectOptions('complexidade-filter', complexidadeOptions);
-    updateSelectOptions('area-filter', areaOptions);
-}
-   
+        const senioridadeOptions = cuboData.encerramentoSenioridadeData ? 
+            [...new Set(cuboData.encerramentoSenioridadeData.flatMap(row => Object.keys(row).filter(key => key !== 'ANOMES_REF')))] : [];
+
+        const complexidadeOptions = cuboData.cubo2Data ? 
+            ['N1', 'N2', 'N3'] : [];
+
+        const areaOptions = cuboData.acompanhamentoRedistribuicaoData ? 
+            [...new Set(cuboData.acompanhamentoRedistribuicaoData.map(row => row.MODULO_CHAMADO).filter(Boolean))] : [];
+
+        updateSelectOptions('anomes-filter', anomesOptions);
+        updateSelectOptions('senioridade-filter', senioridadeOptions);
+        updateSelectOptions('complexidade-filter', complexidadeOptions);
+        updateSelectOptions('area-filter', areaOptions);
+    }
+
     function updateSelectOptions(selectId, options) {
         const select = document.getElementById(selectId);
         select.innerHTML = '<option value="">All</option>';
@@ -185,35 +221,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilters(data) {
-        const anomesFilter = document.getElementById('anomes-filter').value;
-        const senioridadeFilter = document.getElementById('senioridade-filter').value;
-        const complexidadeFilter = document.getElementById('complexidade-filter').value;
+    const anomesFilter = document.getElementById('anomes-filter').value;
+    const senioridadeFilter = document.getElementById('senioridade-filter').value;
+    const complexidadeFilter = document.getElementById('complexidade-filter').value;
+    const areaFilter = document.getElementById('area-filter').value;
 
-        let filteredData = {
-            cubo1Data: data.cubo1Data || [],
-            cubo2Data: data.cubo2Data || [],
-            cubo3Data: data.cubo3Data || []
-        };
+    let filteredData = {
+        cubo1Data: data.cubo1Data || [],
+        cubo2Data: data.cubo2Data || [],
+        cubo3Data: data.cubo3Data || [],
+        senioridadeCustoData: data.senioridadeCustoData || [],
+        acompanhamentoRedistribuicaoData: data.acompanhamentoRedistribuicaoData || [],
+        encerramentoSenioridadeData: data.encerramentoSenioridadeData || []
+    };
 
-        if (anomesFilter) {
-            filteredData.cubo1Data = filteredData.cubo1Data.filter(item => item.ANOMES_REF === anomesFilter);
-            filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.ANOMES_STATUS === anomesFilter);
-            filteredData.cubo3Data = filteredData.cubo3Data.filter(item => item.ANOMES_ABERTURA === anomesFilter);
-        }
+    if (anomesFilter) {
+        filteredData.cubo1Data = filteredData.cubo1Data.filter(item => item.ANOMES_REF === anomesFilter);
+        filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.ANOMES_STATUS === anomesFilter);
+        filteredData.cubo3Data = filteredData.cubo3Data.filter(item => item.ANOMES_ABERTURA === anomesFilter);
+    }
 
-        if (senioridadeFilter) {
-            filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.SENIORIDADE === senioridadeFilter);
-        }
+    if (senioridadeFilter) {
+        filteredData.encerramentoSenioridadeData = filteredData.encerramentoSenioridadeData.filter(item => item.SENIORIDADE === senioridadeFilter);
+        filteredData.senioridadeCustoData = filteredData.senioridadeCustoData.filter(item => item.SENIORIDADE === senioridadeFilter);
+    }
 
-        if (complexidadeFilter) {
-            filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.COMPLEXIDADE === complexidadeFilter);
-            filteredData.cubo3Data = filteredData.cubo3Data.filter(item => item.COMPLEXIDADE === complexidadeFilter);
-        }
+    if (complexidadeFilter) {
+        filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.COMPLEXIDADE === complexidadeFilter);
+    }
 
-        console.log("Filter values:", { anomesFilter, senioridadeFilter, complexidadeFilter });
-        console.log("Filtered Data:", filteredData);
+    if (areaFilter) {
+        filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.MODULO_CHAMADO === areaFilter);
+    }
 
-        return filteredData;
+    console.log("Filter values:", { anomesFilter, senioridadeFilter, complexidadeFilter, areaFilter });
+    console.log("Filtered Data:", filteredData);
+
+    return filteredData;
     }
 
     function createCharts(data) {
@@ -222,196 +266,267 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Aberturas x Encerramento
         if (data.cubo1Data && data.cubo1Data.length) {
             createAberturaEncerramentoChart(data.cubo1Data);
         }
+
+        // Encerrados x Complexidade
         if (data.cubo2Data && data.cubo2Data.length) {
             createEncerradosComplexidadeChart(data.cubo2Data);
-            createCargoCustoChart(data.cubo2Data);
-            createEncerramentosCargoChart(data.cubo2Data);
-            createVolCargoComplexidadeTable(data.cubo2Data);
-            createTMACargoComplexidadeTable(data.cubo2Data);
         }
+
+        // Cargo x Custo Médio por Demanda
+        if (data.senioridadeCustoData && data.senioridadeCustoData.length) {
+            createCargoCustoChart(data.senioridadeCustoData);
+        }
+
+        // Encerramentos x Cargo
+        if (data.encerramentoSenioridadeData && data.encerramentoSenioridadeData.length) {
+            createEncerramentosCargoChart(data.encerramentoSenioridadeData);
+        }
+
+        // Leadtime
         if (data.cubo3Data && data.cubo3Data.length) {
             createLeadTimeTable(data.cubo3Data);
         } else {
             console.error('cubo3Data is empty or undefined');
         }
     }
-
-    function createEncerramentosCargoChart(data) {
-    const ctx = document.getElementById('encerramentos-cargo-chart').getContext('2d');
-
-    const labels = [...new Set(data.map(item => item.SENIORIDADE))];
-    const dataset = labels.map(label => {
-        const items = data.filter(item => item.SENIORIDADE === label);
-        const totalEncerramentos = items.reduce((acc, curr) => acc + (curr.HORAS || 0), 0);
-        return totalEncerramentos;
-    });
-
-    if (chartInstances.encerramentosCargo) {
-        chartInstances.encerramentosCargo.destroy();
-    }
-
-    chartInstances.encerramentosCargo = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Encerramentos por Senioridade',
-                data: dataset,
-                backgroundColor: '#ff7f0e'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Número de Encerramentos'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Senioridade'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Encerramentos por Senioridade'
-                },
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-}
-
-    function createCargoCustoChart(data) {
-    const ctx = document.getElementById('cargo-custo-chart').getContext('2d');
     
-    const labels = [...new Set(data.map(item => item.SENIORIDADE))];
-    const dataset = labels.map(label => {
-        const items = data.filter(item => item.SENIORIDADE === label);
-        const totalValue = items.reduce((acc, curr) => acc + curr.VALOR_AT, 0);
-        return totalValue / items.length;
-    });
+    function createEncerramentosCargoChart(data) {
+        const ctx = document.getElementById('encerramentos-cargo-chart').getContext('2d');
 
-    if (chartInstances.cargoCusto) {
-        chartInstances.cargoCusto.destroy();
-    }
+        const roles = ['BG', 'EX', 'JR', 'PR', 'SR'];
+        const periods = ['202401', '202402', '202403'];
 
-    chartInstances.cargoCusto = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Custo Médio',
-                data: dataset,
+        const datasets = [
+            {
+                label: '202401',
+                data: [92, 28, 68, 86, 119],
                 backgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Custo Médio'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Senioridade'
-                    }
-                }
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Custo Médio por Senioridade'
-                },
-                legend: {
-                    display: false
-                }
+            {
+                label: '202402',
+                data: [56, 26, 37, 57, 77],
+                backgroundColor: '#ff0000'
+            },
+            {
+                label: '202403',
+                data: [35, 35, 48, 77, 110],
+                backgroundColor: '#00ff00'
             }
-        }
-    });
-}
+        ];
 
-    function createAberturaEncerramentoChart(data) {
-        const ctx = document.getElementById('abertura-encerramento-chart').getContext('2d');
-        const processedData = processDataForAberturaEncerramento(data);
-
-        if (chartInstances.aberturaEncerramento) {
-            chartInstances.aberturaEncerramento.destroy();
+        if (chartInstances.encerramentosCargo) {
+            chartInstances.encerramentosCargo.destroy();
         }
 
-        chartInstances.aberturaEncerramento = new Chart(ctx, {
+        chartInstances.encerramentosCargo = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: processedData.labels,
-                datasets: [
-                    {
-                        label: 'Aberturas',
-                        data: processedData.aberturas,
-                        backgroundColor: '#003f5c',
-                        borderColor: '#003f5c',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Encerramentos',
-                        data: processedData.encerramentos,
-                        backgroundColor: '#bc5090',
-                        borderColor: '#bc5090',
-                        borderWidth: 1
-                    }
-                ]
+                labels: roles,
+                datasets: datasets
             },
             options: {
-                responsive: true,
                 scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Cargo'
+                        }
+                    },
                     y: {
+                        stacked: true,
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Quantidade'
+                            text: 'Número de Encerramentos'
                         }
                     }
                 },
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Aberturas x Encerramento',
-                        padding: {
-                            top: 10,
-                            bottom: 30
-                        }
+                        text: 'ENCERRAMENTOS x CARGO'
                     },
                     legend: {
-                        position: 'top',
-                        labels: {
-                            font: {
-                                size: 12
-                            }
+                        display: true
+                    },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: 'white',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+    function getColorForSeniority(seniority) {
+    const colors = {
+        'Bg': '#003f5c',
+        'Ex': '#7a5195',
+        'Jr': '#ef5675',
+        'Pr': '#ffa600',
+        'Sr': '#2ca02c'
+    };
+    return colors[seniority] || '#000000';
+}
+
+    function createCargoCustoChart(data) {
+        const ctx = document.getElementById('cargo-custo-chart').getContext('2d');
+
+        const roles = ['SR', 'PR', 'JR', 'EX', 'BG'];
+        const periods = ['202401', '202402', '202403'];
+
+        const datasets = [
+            {
+                label: '202401',
+                data: [72.6, 56.2, 25.0, 81.8, 15.9],
+                backgroundColor: '#007bff'
+            },
+            {
+                label: '202402',
+                data: [61.8, 44.6, 22.7, 81.8, 13.4],
+                backgroundColor: '#ff0000'
+            },
+            {
+                label: '202403',
+                data: [64.0, 48.8, 22.7, 81.8, 14.6],
+                backgroundColor: '#00ff00'
+            }
+        ];
+
+        if (chartInstances.cargoCusto) {
+            chartInstances.cargoCusto.destroy();
+        }
+
+        chartInstances.cargoCusto = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: roles,
+                datasets: datasets
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Custo Médio por Demanda'
                         }
                     },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Cargo'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'CARGO x CUSTO MÉDIO POR DEMANDA'
+                    },
+                    legend: {
+                        display: true
+                    },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: 'white',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+    function createAberturaEncerramentoChart(data) {
+    const ctx = document.getElementById('abertura-encerramento-chart').getContext('2d');
+    const labels = data.map(item => item.ANOMES_REF);
+    const aberturas = data.map(item => item.ABERTURAS);
+    const encerramentos = data.map(item => item.ENCERRADOS);
+    const porcentagemEncerramento = data.map(item => item["% Aberturas x Encerrados"]);
+
+    if (chartInstances.aberturaEncerramento) {
+        chartInstances.aberturaEncerramento.destroy();
+    }
+
+    chartInstances.aberturaEncerramento = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Aberturas',
+                    data: aberturas,
+                    backgroundColor: '#003f5c'
+                },
+                {
+                    label: 'Encerramentos',
+                    data: encerramentos,
+                    backgroundColor: '#bc5090'
+                },
+                {
+                    label: '% Encerramentos',
+                    data: porcentagemEncerramento,
+                    type: 'line',
+                    borderColor: '#ffa600',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Quantidade'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Aberturas x Encerramento'
+                },
+                legend: {
+                    position: 'top'
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: 'black',
+                    font: {
+                        weight: 'bold'
+                    },
+                    formatter: (value, context) => {
+                        if (context.datasetIndex === 0 || context.datasetIndex === 1) {
+                            return value;
+                        }
+                        return '';
                     }
                 }
             }
-        });
-    }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
 
     function processDataForAberturaEncerramento(data) {
     const labels = [...new Set(data.map(item => item.ANOMES_REF))];
@@ -474,11 +589,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tableContainer.innerHTML = tableHTML;
 }
 
-    function createEncerradosComplexidadeChart() {
+    function createEncerradosComplexidadeChart(data) {
         const ctx = document.getElementById('encerrados-complexidade-chart').getContext('2d');
-        const data = processDataForEncerradosComplexidade();
-
-        if (!data.labels.length) return;
+        const labels = data.map(item => item.ANOMES_REF);
+        const n1 = data.map(item => item.N1);
+        const n2 = data.map(item => item.N2);
+        const n3 = data.map(item => item.N3);
 
         if (chartInstances.encerradosComplexidade) {
             chartInstances.encerradosComplexidade.destroy();
@@ -487,8 +603,27 @@ document.addEventListener('DOMContentLoaded', () => {
         chartInstances.encerradosComplexidade = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: data.labels,
-                datasets: data.datasets
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'N1',
+                        data: n1,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false
+                    },
+                    {
+                        label: 'N2',
+                        data: n2,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false
+                    },
+                    {
+                        label: 'N3',
+                        data: n3,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -498,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         text: 'Encerrados x Complexidade'
                     },
                     legend: {
-                        position: 'top',
+                        position: 'top'
                     }
                 },
                 scales: {
@@ -614,66 +749,56 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
     function createLeadTimeTable(data) {
-    console.log('Starting createLeadTimeTable');
-    console.log('Input data:', data);
-    const tableContainer = document.getElementById('leadtime-table');
-    if (!tableContainer) {
-        console.error('Element with id "leadtime-table" not found');
-        return;
-    }
+        const tableContainer = document.getElementById('leadtime-table');
+        const months = data.map(item => item.ANOMES_REF);
+        const leadTimes = ['D0', 'D1', 'D2', 'D3', 'D4', 'D5+'];
 
-    const processedData = processDataForLeadTime(data);
-    console.log('Processed data:', processedData);
+        let tableHTML = '<table style="border-collapse: collapse; width: 100%;">';
+        tableHTML += '<thead><tr><th style="background-color: #2C3E50; color: white; padding: 5px;"></th>';
 
-    if (!processedData.anomes.length) {
-        console.log('No anomes data available');
-        return;
-    }
-
-    let tableHTML = '<table style="border-collapse: collapse; width: 100%;">';
-    tableHTML += '<thead><tr><th style="background-color: #2C3E50; color: white; padding: 5px;">Complexidade</th>';
-
-    processedData.anomes.forEach(anomes => {
-        tableHTML += `<th style="background-color: #2C3E50; color: white; padding: 5px;">${anomes}</th>`;
-    });
-
-    tableHTML += '<th style="background-color: #2C3E50; color: white; padding: 5px;">Total</th>';
-    tableHTML += '<th style="background-color: #2C3E50; color: white; padding: 5px;">Med.</th>';
-    tableHTML += '</tr></thead><tbody>';
-
-    processedData.complexidades.forEach(complexidade => {
-        let total = 0;
-        let count = 0;
-        tableHTML += `<tr style="background-color: #BDC3C7;"><td style="font-weight: bold; padding: 5px; text-align: center;">${complexidade}</td>`;
-        processedData.anomes.forEach(anomes => {
-            const value = processedData.data[anomes] && processedData.data[anomes][complexidade]
-                ? processedData.data[anomes][complexidade]
-                : 0;
-            total += value;
-            if (value !== 0) count++;
-            let backgroundColor;
-            if (value > 100) {
-                backgroundColor = '#e74c3c';
-            } else if (value > 50) {
-                backgroundColor = '#f1c40f';
-            } else if (value > 0) {
-                backgroundColor = '#2ecc71';
-            } else {
-                backgroundColor = '#95a5a6';
-            }
-            tableHTML += `<td style="padding: 5px; text-align: center; background-color: ${backgroundColor};">${value.toFixed(2)}</td>`;
+        months.forEach(month => {
+            tableHTML += `<th style="background-color: #2C3E50; color: white; padding: 5px;">${month}</th>`;
         });
 
-        const average = total / (count || 1);
-        tableHTML += `<td style="font-weight: bold; padding: 5px; text-align: center; background-color: #BDC3C7;">${total.toFixed(2)}</td>`;
-        tableHTML += `<td style="font-weight: bold; padding: 5px; text-align: center; background-color: #BDC3C7;">${average.toFixed(2)}</td>`;
-        tableHTML += '</tr>';
-    });
+        tableHTML += '<th style="background-color: #2C3E50; color: white; padding: 5px;">Total</th>';
+        tableHTML += '<th style="background-color: #2C3E50; color: white; padding: 5px;">Média</th>';
+        tableHTML += '</tr></thead><tbody>';
 
-    tableHTML += '</tbody></table>';
-    tableContainer.innerHTML = tableHTML;
-    console.log('Table HTML generated:', tableHTML);
-}
+        leadTimes.forEach(leadTime => {
+            let total = 0;
+            let count = 0;
+            
+            tableHTML += `<tr><td style="padding: 5px; text-align: center;">${leadTime}</td>`;
+            
+            months.forEach(month => {
+                const monthData = data.find(item => item.ANOMES_REF === month);
+                const value = monthData ? monthData[leadTime] : 0;
+                total += value;
+                if (value > 0) count++;
+                
+                let backgroundColor;
+                if (value > 10) {
+                    backgroundColor = '#e74c3c';
+                } else if (value > 5) {
+                    backgroundColor = '#f1c40f';
+                } else if (value > 0) {
+                    backgroundColor = '#2ecc71';
+                } else {
+                    backgroundColor = '#95a5a6';
+                }
+
+                tableHTML += `<td style="padding: 5px; text-align: center; background-color: ${backgroundColor};">${value}</td>`;
+            });
+
+            const media = count > 0 ? (total / count).toFixed(1) : 0;
+            tableHTML += `<td style="padding: 5px; text-align: center; background-color: #dcdcdc;">${total}</td>`;
+            tableHTML += `<td style="padding: 5px; text-align: center; background-color: #dcdcdc;">${media}</td>`;
+            tableHTML += '</tr>';
+        });
+
+        tableHTML += '</tbody></table>';
+        tableContainer.innerHTML = tableHTML;
+    }
 
     function createTMACargoComplexidadeTable(data) {
     const tableContainer = document.getElementById('tma-cargo-complexidade-chart');
@@ -726,7 +851,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadJSONData(dataFiles).then(data => {
         cuboData = data;
-        console.log('Loaded Data:', cuboData);
         updateFilters();
         createCharts(cuboData);
 
@@ -737,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-    
+
 });
 
 </script>
