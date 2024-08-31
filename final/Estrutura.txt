@@ -1,2 +1,0 @@
-Descrição da organização dos arquivos e pastas do projeto.
-(as vezes da pra jogar direto no README/PDF)

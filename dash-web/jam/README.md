@@ -1,0 +1,1 @@
+versão em HTML/JS consumindo JSONs e plotando com Chart.js

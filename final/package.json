@@ -1,0 +1,8 @@
+{
+    "name": "dashboard-de-demandas",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "cd ./frontend && python -m http.server 8000 --bind 127.0.0.1"
+    }
+  }
+  

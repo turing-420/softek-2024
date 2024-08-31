@@ -2,6 +2,8 @@
 
 📉📊💹📈
 
+sistema de gestão de capacidade e demanda
+
 ### Tree:
 ```
 ├── dash-web/                   # versões do dashboard web
@@ -14,6 +16,7 @@
 ├── docs/                       # documentação + pdfs entrega
 │
 ├── final/                      # estrutura final
+├── entrega2-turing30-08/       # entrega de 30/08
 │
 ├── notebooks/                  # notebooks com etl e +
 │

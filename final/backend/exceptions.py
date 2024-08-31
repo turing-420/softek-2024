@@ -1,3 +1,0 @@
-"""
-Tratamento de exceções.
-"""
