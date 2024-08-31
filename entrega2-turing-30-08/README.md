@@ -34,24 +34,7 @@ Para visualizar o dashboard de demandas, você pode usar uma das seguintes opç�
 
 Os notebooks Jupyter localizados na pasta `backend/softtek/main` podem ser executados para preparação e análise de dados:
 
-1. Certifique-se de que o Jupyter Notebook esteja instalado:
-   ```bash
-   pip install notebook
-   ```
-2. Navegue até a pasta do projeto:
-   ```bash
-   cd caminho/para/o/diretorio/backend/softtek/main
-   ```
-3. Inicie o Jupyter Notebook:
-   ```bash
-   jupyter notebook
-   ```
-4. Abra e execute os notebooks na seguinte ordem:
-   - `Indicador/001_dataprep.ipynb`: Preparação de dados.
-   - `Indicador/002_ETL_Indicadores.ipynb`: Processo de ETL.
-   - `model_e_distribuidor/001_EDA.ipynb`: Análise exploratória dos dados.
-   - `model_e_distribuidor/002_preditivo_.ipynb`: Modelagem preditiva.
-   - `model_e_distribuidor/003_distribuidor.ipynb`: Distribuição dos resultados.
+Siga as `Instruções de funcionamento.txt`
 
 
 ### Estrutura de Arquivos e Pastas
