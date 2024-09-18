@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="theme-color" content="#000000">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    
+    <title>Sobre</title>
+</head>
+<body>
+    <header class="d-flex justify-content-between align-items-center">
+        <a href="index.html" class="d-flex align-items-center" style="cursor: pointer; text-decoration: none;color:#181818fa">
+            <div>
+                <img src="./assets/logo.png" alt="Dashboard Logo" height="50">
+            <h1>SOBRE</h1>
+        </div>
+        </a>
+
+        <nav>
+            <a href="index.html" class="btn btn-secondary">
+                Dashboard
+            </a>
+            <a href="sobre.html" class="btn btn-secondary">
+                Sobre
+            </a>
+        </nav>
+    </header>
+    <div class="container">
+        <main class="text-center">
+            <!-- Objetivos do Projeto -->
+            <div class="content-section">
+                <h2>Objetivos e Escopo do Projeto</h2>
+                <p>Nosso projeto visa melhorar a eficiência e a produtividade do Service Desk e do AMS nível 2 através do uso de inteligência artificial generativa para fornecer insights e soluções automatizadas baseadas em dados históricos de atendimento. O escopo inclui o desenvolvimento de um assistente de suporte técnico e um sistema de gestão de capacidade e demandas, utilizando técnicas de machine learning para prever demandas futuras e otimizar a alocação de recursos.</p>
+            </div>
+
+            <!-- Video container -->
+            <div class="video-container">
+                <!-- Spinner -->
+                <div class="spinner"></div>
+                <!-- YouTube video iframe -->
+                <iframe id="youtube-video" src="https://www.youtube.com/embed/mNurichNC00" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <!-- Equipe  -->
+            <section id="team">
+                <h2 class="mb-4">Nossa Equipe</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-member">
+                            <img src="./assets/andre.jpeg" alt="André" class="img-fluid rounded-circle">
+                            <h3>André</h3>
+                            <p>Responsável por liderar o desenvolvimento da arquitetura do projeto e criar modelos de predição utilizando técnicas avançadas de machine learning.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-member">
+                            <img src="./assets/daniel.jpeg" alt="Daniel" class="img-fluid rounded-circle">
+                            <h3>Daniel</h3>
+                            <p>Criou o roteiro e editou o vídeo Pitch, além de desenvolver o dashboard web com uma interface intuitiva e responsiva.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-member">
+                            <img src="./assets/marcone.jpg" alt="Marcone" class="img-fluid rounded-circle">
+                            <h3>Marcone</h3>
+                            <p>Co-desenvolveu o roteiro e o dashboard web, além de implementar testes de qualidade para assegurar um produto final livre de erros.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-member">
+                            <img src="./assets/masyr.jpeg" alt="Masyr" class="img-fluid rounded-circle">
+                            <h3>Masyr</h3>
+                            <p>Refatorou a última versão da arquitetura do projeto, focando na otimização do código e na melhoria da estrutura geral.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-member">
+                            <img src="./assets/murillo.jpeg" alt="Murillo" class="img-fluid rounded-circle">
+                            <h3>Murillo</h3>
+                            <p>Desenvolveu a modelagem do banco de dados, estruturando-o de forma eficiente para garantir o armazenamento organizado das informações.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var iframe = document.getElementById('youtube-video');
+            var spinner = document.querySelector('.spinner');
+
+            iframe.onload = function () {
+                spinner.style.display = 'none'; 
+                iframe.style.display = 'block';
+            };
+        });
+    </script>
+</body>
+</html>

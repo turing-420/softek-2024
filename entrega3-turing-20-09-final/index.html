@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+        <meta name="msapplication-TileColor" content="#000000">
+        <meta name="theme-color" content="#000000">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./styles/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        
+        <title>Dashboard</title>
+    </head>
+<body>
+    <header class="d-flex justify-content-between align-items-center">
+        <a href="index.html" class="d-flex align-items-center" style="cursor: pointer; text-decoration: none;color:#181818fa">
+            <div>
+                <img src="./assets/logo.png" alt="Dashboard Logo" height="50">
+            <h1>DASHBOARD</h1>
+        </div>
+        </a>
+
+        <nav>
+            <a href="index.html" class="btn btn-secondary">
+                Dashboard
+            </a>
+            <a href="sobre.html" class="btn btn-secondary">
+                Sobre
+            </a>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <!-- Filters Toggle Button -->
+        <button class="btn btn-secondary mb-3" type="button" data-toggle="collapse"
+        data-target="#filters-collapse" aria-expanded="true" aria-controls="filters-collapse"
+        id="toggle-filters-btn">
+            <i class="fas fa-filter"></i> <span id="toggle-filters-text">Ocultar Filtros</span>
+        </button>
+        
+        <!-- Filters Section -->
+        <div class="collapse show" id="filters-collapse">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label for="anomes-filter">Ano/Mês</label>
+                    <select id="anomes-filter" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <label for="senioridade-filter">Senioridade</label>
+                    <select id="senioridade-filter" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <label for="area-filter">Área</label>
+                    <select id="area-filter" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <label for="complexidade-filter">Complexidade</label>
+                    <select id="complexidade-filter" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Charts Section -->
+        <div class="row">
+            <!-- Aberturas x Encerramento Chart -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">ABERTURAS x ENCERRAMENTO</div>
+                    <div class="card-body">
+                        <p>Aberturas e encerramentos de tarefas ao longo do tempo</p>
+                        <canvas id="abertura-encerramento-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Encerrados x Complexidade Chart -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">ENCERRADOS x COMPLEXIDADE</div>
+                    <div class="card-body">
+                        <p>Número de tarefas encerradas, categorizadas por níveis de complexidade</p>
+                        <canvas id="encerrados-complexidade-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Cargo x Custo Médio por Demanda Chart -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">SENIORIDADE x CUSTO MÉDIO POR DEMANDA</div>
+                    <div class="card-body">
+                        <p>Custo médio por demanda, dividido pela senioridade dos funcionários</p>
+                        <canvas id="cargo-custo-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Encerramentos x Senioridade Chart -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">ENCERRAMENTOS x SENIORIDADE</div>
+                    <div class="card-body">
+                        <p>Tarefas encerradas por diferentes níveis de senioridade</p>
+                        <canvas id="encerramentos-cargo-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ocorrências Pendentes Redistribuídas -->
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">OCORRÊNCIAS PENDENTES REDISTRIBUÍDAS</div>
+                    <div class="card-body">
+                        <p>Ocorrências pendentes redistribuídas ao longo do tempo, categorizadas por complexidade</p>
+                        <canvas id="pendentes-redistribuidas-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Leadtime Table -->
+        <div class="card mb-4">
+            <div class="card-header">LEADTIME</div>
+            <div class="card-body">
+                <p>Tempo total para conclusão de tarefas, segmentado em intervalos de dias (D0 a D5+) e períodos, oferecendo uma visão detalhada dos tempos de execução</p>
+                <div id="leadtime-table"></div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="./scripts/script.js"></script>
+</body>
+</html>
