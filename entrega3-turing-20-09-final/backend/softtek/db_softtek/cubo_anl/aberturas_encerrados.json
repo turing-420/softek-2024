@@ -1,0 +1,26 @@
+[
+    {
+        "ANOMES_REF":"202401",
+        "ABERTURAS":284,
+        "ENCERRADOS":272.0,
+        "% Aberturas x Encerrados":95.77
+    },
+    {
+        "ANOMES_REF":"202402",
+        "ABERTURAS":238,
+        "ENCERRADOS":203.0,
+        "% Aberturas x Encerrados":85.29
+    },
+    {
+        "ANOMES_REF":"202403",
+        "ABERTURAS":187,
+        "ENCERRADOS":214.0,
+        "% Aberturas x Encerrados":114.44
+    },
+    {
+        "ANOMES_REF":"202404",
+        "ABERTURAS":4,
+        "ENCERRADOS":0.0,
+        "% Aberturas x Encerrados":0.0
+    }
+]

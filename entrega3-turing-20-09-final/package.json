@@ -1,0 +1,11 @@
+{
+    "name": "dashboard",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "npm install && live-server"
+    },
+    "dependencies": {
+      "live-server": "^1.2.1"
+    }
+  }
+  
