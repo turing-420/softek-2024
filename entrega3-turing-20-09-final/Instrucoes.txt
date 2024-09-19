@@ -1,6 +1,6 @@
 ## Instruções para Execução do Projeto ##
 
-### DEMO ONLINE ###
+### 📈 DEMO ONLINE 📊 ###
 ## Você pode acessar o dashboard diretamente através do link:
 ## https://dashboardsofttek.vercel.app
 
@@ -20,7 +20,32 @@
 
 ### Instruções para Rodar o Projeto ###
 
-### 1. Executar o Front-End
+Escolha a melhor opção para você:
+- Docker (recomendado)
+- Nodejs + live-server (npm start)
+- VS Code / Jupyter
+
+
+### Docker 🐳
+        - Você pode rodar o docker-compose para executar o front-end + ETL processando o `backend/softtek/db_softtek/FIAP_DataBase_v1.xlsx`
+            ```
+            docker-compose build
+            docker-compose up
+            ```
+        - Apenas o front-end:
+            ```
+            docker build -t dashboard .
+            docker run -p 80:80 dashboard
+            ```
+        - Apenas o ETL no arquivo `db_softtek/FIAP_DataBase_v1.xlsx`:
+            ```
+            cd backend/softtek
+            docker build -t backend .
+            docker run -v $(pwd)/db_softtek:/app/db_softtek -v $(pwd)../../../data:/data backend
+            ```
+
+
+### Executar o Front-End 🖌
 
 Para visualizar o dashboard, siga uma das opções abaixo:
 
@@ -36,13 +61,19 @@ Para visualizar o dashboard, siga uma das opções abaixo:
             ```
 
     2. **Live Server (VS Code)**:
-    - Abra o projeto no Visual Studio Code.
-    - Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
-    - O navegador será aberto automaticamente com o dashboard em execução.
+        - Abra o projeto no Visual Studio Code.
+        - Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
+        - O navegador será aberto automaticamente com o dashboard em execução.
+
+    3. **Docker**:
+        - Com Docker instalado, rode:
+            ```
+            docker build -t dashboard .
+            docker run -p 80:80 dashboard
+            ```
 
 
-
-### 2. Executar o Back-End (Notebooks Jupyter) ###
+### Executar o Back-End (Notebooks Jupyter) 👩‍💻
 
 Os notebooks Jupyter localizados na pasta `backend/softtek/main` podem ser executados para preparação e análise de dados:
 
@@ -50,14 +81,15 @@ Siga as `Instruções de funcionamento.txt`
 
 
 
-### Ferramentas Utilizadas ###
+### Ferramentas Utilizadas 🔧
 
-- Jupyter Notebook para o backend e análise de dados.
+- Jupyter Notebook, pandas, matplotlib para o backend e análise de dados.
 - HTML5, CSS3, e JavaScript para o desenvolvimento do front-end.
 - Chart.js para visualização gráfica dos dados.
 - Bootstrap para o design responsivo.
 - JSON como formato para os dados.
 
-### Observações ###
+
+### Observações
 
 - Para problemas com execução ou dúvidas técnicas, por favor, entre em contato com o grupo.

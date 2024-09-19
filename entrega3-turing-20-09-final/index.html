@@ -23,7 +23,7 @@
         <a href="index.html" class="d-flex align-items-center" style="cursor: pointer; text-decoration: none;color:#181818fa">
             <div>
                 <img src="./assets/logo.png" alt="Dashboard Logo" height="50">
-            <h1>DASHBOARD</h1>
+            <h1>Dashboard</h1>
         </div>
         </a>
 
@@ -56,10 +56,7 @@
                     <label for="senioridade-filter">Senioridade</label>
                     <select id="senioridade-filter" class="form-control"></select>
                 </div>
-                <div class="col-md-3">
-                    <label for="area-filter">Área</label>
-                    <select id="area-filter" class="form-control"></select>
-                </div>
+
                 <div class="col-md-3">
                     <label for="complexidade-filter">Complexidade</label>
                     <select id="complexidade-filter" class="form-control"></select>
@@ -72,7 +69,7 @@
             <!-- Aberturas x Encerramento Chart -->
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">ABERTURAS x ENCERRAMENTO</div>
+                    <div class="card-header">Aberturas x Encerramento</div>
                     <div class="card-body">
                         <p>Aberturas e encerramentos de tarefas ao longo do tempo</p>
                         <canvas id="abertura-encerramento-chart"></canvas>
@@ -83,9 +80,9 @@
             <!-- Encerrados x Complexidade Chart -->
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">ENCERRADOS x COMPLEXIDADE</div>
+                    <div class="card-header">Encerrados x Complexidade</div>
                     <div class="card-body">
-                        <p>Número de tarefas encerradas, categorizadas por níveis de complexidade</p>
+                        <p>Tarefas encerradas, categorizadas por níveis de complexidade</p>
                         <canvas id="encerrados-complexidade-chart"></canvas>
                     </div>
                 </div>
@@ -94,7 +91,7 @@
             <!-- Cargo x Custo Médio por Demanda Chart -->
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">SENIORIDADE x CUSTO MÉDIO POR DEMANDA</div>
+                    <div class="card-header">Senioridade x Custo Médio por Demanda</div>
                     <div class="card-body">
                         <p>Custo médio por demanda, dividido pela senioridade dos funcionários</p>
                         <canvas id="cargo-custo-chart"></canvas>
@@ -105,7 +102,7 @@
             <!-- Encerramentos x Senioridade Chart -->
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">ENCERRAMENTOS x SENIORIDADE</div>
+                    <div class="card-header">Encerramentos x Senioridade</div>
                     <div class="card-body">
                         <p>Tarefas encerradas por diferentes níveis de senioridade</p>
                         <canvas id="encerramentos-cargo-chart"></canvas>
@@ -116,9 +113,10 @@
             <!-- Ocorrências Pendentes Redistribuídas -->
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <div class="card-header">OCORRÊNCIAS PENDENTES REDISTRIBUÍDAS</div>
+                    <div class="card-header">Ocorrências não encerradas (abertas) x Complexidade (mês)
+                    </div>
                     <div class="card-body">
-                        <p>Ocorrências pendentes redistribuídas ao longo do tempo, categorizadas por complexidade</p>
+                        <p>Tarefas encerradas, agrupadas por senioridade dos funcionários</p>
                         <canvas id="pendentes-redistribuidas-chart"></canvas>
                     </div>
                 </div>
@@ -127,9 +125,9 @@
     
         <!-- Leadtime Table -->
         <div class="card mb-4">
-            <div class="card-header">LEADTIME</div>
+            <div class="card-header">Leadtime</div>
             <div class="card-body">
-                <p>Tempo total para conclusão de tarefas, segmentado em intervalos de dias (D0 a D5+) e períodos, oferecendo uma visão detalhada dos tempos de execução</p>
+                <p>Tempo total para conclusão de tarefas, segmentado em intervalos de dias (D0 a D5+) e períodos</p>
                 <div id="leadtime-table"></div>
             </div>
         </div>
