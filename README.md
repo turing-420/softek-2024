@@ -8,56 +8,6 @@ Este projeto visa fornecer uma visualização interativa e abrangente das demand
 Você pode acessar o dashboard diretamente através do link: 
 [https://dashboardsofttek.vercel.app/](https://dashboardsofttek.vercel.app/)
 
-### Como Executar o Projeto
-
-Escolha a melhor opção para você:
-- Docker (recomendado)
-- Nodejs + live-server (npm start)
-- VS Code / Jupyter
-
-
-### Docker 🐳
-        - Você pode executar o front-end + ETL em localhost:80 com:
-            ```
-            docker-compose up --build
-            ```
-        - Apenas o front-end:
-            ```
-            docker-compose up --build frontend
-            ```
-        - Apenas o ETL no arquivo `backend/db_softtek/FIAP_DataBase_v1.xlsx`:
-            ```
-            docker-compose up --build backend
-            ```
-
-
-### Executar o Front-End 🖌
-
-Para visualizar o dashboard, siga uma das opções abaixo:
-
-    1. **Node.js (live-server)**:
-        - Certifique-se de que o Node.js está instalado.
-        - No terminal, navegue até /frontend e execute:
-            ```
-            npm run start
-            ```
-        - Abra o navegador e acesse o endereço:
-            ```
-            http://127.0.0.1:8080
-            ```
-
-    2. **Live Server (VS Code)**:
-        - Abra o projeto no Visual Studio Code.
-        - Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
-        - O navegador será aberto automaticamente com o dashboard em execução.
-
-### Executar o Back-End (Notebooks Jupyter) 👩‍💻
-
-Os notebooks Jupyter localizados na pasta `backend/softtek/main` podem ser executados para preparação e análise de dados:
-
-Siga as `Instruções de funcionamento.txt`
-
-
 
 ### Ferramentas Utilizadas 🔧
 
@@ -66,11 +16,6 @@ Siga as `Instruções de funcionamento.txt`
 - Chart.js para visualização gráfica dos dados.
 - Bootstrap para o design responsivo.
 - JSON como formato para os dados.
-
-
-### Observações
-
-- Para problemas com execução ou dúvidas técnicas, por favor, entre em contato com o grupo.
 
 
 ### Documentação e Arquitetura

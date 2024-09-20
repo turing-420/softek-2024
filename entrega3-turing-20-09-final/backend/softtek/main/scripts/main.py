@@ -420,7 +420,7 @@ print(f"JSON salvo: {output_json_path}")
 caminho_base = os.path.abspath(os.path.join('..', '..', 'db_softtek'))
 caminho_cubo_anl = os.path.join(caminho_base, 'cubo_anl')
 caminho_modelo = os.path.join(caminho_base, 'modelo')
-caminho_dados_frontend = os.path.abspath(os.path.join('..', '..', '..', '..', 'data'))
+caminho_dados_frontend = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'frontend', 'data'))
 
 # Garantir que o diretório de destino exista
 if not os.path.exists(caminho_dados_frontend):

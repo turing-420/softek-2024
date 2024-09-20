@@ -1,18 +1,16 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: ./backend/softtek
     volumes:
       - ./backend/softtek/db_softtek:/app/db_softtek
-      - ./data:/data
-    entrypoint: ["python", "main.py"]
+      - ./frontend/data:/frontend/data
+    entrypoint: ["sh", "-c", "python main.py && echo 'http://localhost:80 ✅'"]
 
   frontend:
     build:
-      context: .
+      context: ./frontend
     ports:
       - "80:80"
     volumes:
-      - ./data:/usr/share/nginx/html/data
+      - ./frontend/data:/usr/share/nginx/html/frontend/data

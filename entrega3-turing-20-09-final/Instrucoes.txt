@@ -27,21 +27,18 @@ Escolha a melhor opção para você:
 
 
 ### Docker 🐳
-        - Você pode rodar o docker-compose para executar o front-end + ETL processando o `backend/softtek/db_softtek/FIAP_DataBase_v1.xlsx`
+        - Na pasta raiz:
+        - Você pode executar o front-end + ETL em localhost:80 com:
             ```
-            docker-compose build
-            docker-compose up
+            docker-compose up --build
             ```
-        - Apenas o front-end:
+        - Apenas o frontend:
             ```
-            docker build -t dashboard .
-            docker run -p 80:80 dashboard
+            docker-compose up --build frontend
             ```
         - Apenas o ETL no arquivo `db_softtek/FIAP_DataBase_v1.xlsx`:
             ```
-            cd backend/softtek
-            docker build -t backend .
-            docker run -v $(pwd)/db_softtek:/app/db_softtek -v $(pwd)../../../data:/data backend
+            docker-compose up --build backend
             ```
 
 
@@ -51,7 +48,11 @@ Para visualizar o dashboard, siga uma das opções abaixo:
 
     1. **Node.js (live-server)**:
         - Certifique-se de que o Node.js está instalado.
-        - No terminal, navegue até a pasta raiz do projeto e execute o seguinte comando:
+        - No terminal, navegue até a pasta frontend 
+            ```
+            cd frontend
+            ```
+        - Execute o seguinte comando:
             ```
             npm run start
             ```
@@ -64,13 +65,6 @@ Para visualizar o dashboard, siga uma das opções abaixo:
         - Abra o projeto no Visual Studio Code.
         - Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
         - O navegador será aberto automaticamente com o dashboard em execução.
-
-    3. **Docker**:
-        - Com Docker instalado, rode:
-            ```
-            docker build -t dashboard .
-            docker run -p 80:80 dashboard
-            ```
 
 
 ### Executar o Back-End (Notebooks Jupyter) 👩‍💻
