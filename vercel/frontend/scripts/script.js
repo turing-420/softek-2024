@@ -47,13 +47,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const complexidadeOptions = ['N1', 'N2', 'N3'];
 
-        const areaOptions = cuboData.acompanhamentoRedistribuicaoData ? 
-            [...new Set(cuboData.acompanhamentoRedistribuicaoData.map(row => row.MODULO_CHAMADO).filter(value => value && value.trim() !== ''))] : [];
-
         updateSelectOptions('anomes-filter', anomesOptions);
         updateSelectOptions('senioridade-filter', senioridadeOptions);
         updateSelectOptions('complexidade-filter', complexidadeOptions);
-        updateSelectOptions('area-filter', areaOptions);
     }
 
     function updateSelectOptions(selectId, options) {
@@ -71,65 +67,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function applyFilters(data) {
-    const anomesFilter = document.getElementById('anomes-filter').value;
-    const senioridadeFilter = document.getElementById('senioridade-filter').value;
-    const complexidadeFilter = document.getElementById('complexidade-filter').value;
-    const areaFilter = document.getElementById('area-filter').value;
-
-    let filteredData = {
-        cubo1Data: data.cubo1Data || [],
-        cubo2Data: data.cubo2Data || [],
-        cubo3Data: data.cubo3Data || [],
-        senioridadeCustoData: data.senioridadeCustoData || [],
-        acompanhamentoRedistribuicaoData: data.acompanhamentoRedistribuicaoData || [],
-        encerramentoSenioridadeData: data.encerramentoSenioridadeData || []
-    };
-
-    if (anomesFilter) {
-        filteredData.cubo1Data = filteredData.cubo1Data.filter(item => item.ANOMES_REF === anomesFilter);
-        filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.ANOMES_REF === anomesFilter);
-        filteredData.cubo3Data = filteredData.cubo3Data.filter(item => item.ANOMES_REF === anomesFilter);
-        filteredData.senioridadeCustoData = filteredData.senioridadeCustoData.filter(item => item.ANOMES_STATUS === anomesFilter);
-        filteredData.encerramentoSenioridadeData = filteredData.encerramentoSenioridadeData.filter(item => item.ANOMES_REF === anomesFilter);
-        filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.ANOMES_ABERTURA === anomesFilter);
-    }
-
-    if (senioridadeFilter) {
-        filteredData.senioridadeCustoData = filteredData.senioridadeCustoData.map(item => {
-            const newItem = { ANOMES_STATUS: item.ANOMES_STATUS };
-            ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'].forEach(role => {
-                newItem[role] = (role === senioridadeFilter) ? item[role] : 0;
+        const anomesFilter = document.getElementById('anomes-filter').value;
+        const senioridadeFilter = document.getElementById('senioridade-filter').value;
+        const complexidadeFilter = document.getElementById('complexidade-filter').value;
+        
+        let filteredData = {
+            cubo1Data: data.cubo1Data || [],
+            cubo2Data: data.cubo2Data || [],
+            cubo3Data: data.cubo3Data || [],
+            senioridadeCustoData: data.senioridadeCustoData || [],
+            acompanhamentoRedistribuicaoData: data.acompanhamentoRedistribuicaoData || [],
+            encerramentoSenioridadeData: data.encerramentoSenioridadeData || []
+        };
+        
+        if (anomesFilter) {
+            filteredData.cubo1Data = filteredData.cubo1Data.filter(item => item.ANOMES_REF === anomesFilter);
+            filteredData.cubo2Data = filteredData.cubo2Data.filter(item => item.ANOMES_REF === anomesFilter);
+            filteredData.cubo3Data = filteredData.cubo3Data.filter(item => item.ANOMES_REF === anomesFilter);
+            filteredData.senioridadeCustoData = filteredData.senioridadeCustoData.filter(item => item.ANOMES_STATUS === anomesFilter);
+            filteredData.encerramentoSenioridadeData = filteredData.encerramentoSenioridadeData.filter(item => item.ANOMES_REF === anomesFilter);
+            filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.ANOMES_ABERTURA === anomesFilter);
+        }
+        
+        if (senioridadeFilter) {
+            filteredData.senioridadeCustoData = filteredData.senioridadeCustoData.map(item => {
+                const newItem = { ANOMES_STATUS: item.ANOMES_STATUS };
+                ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'].forEach(role => {
+                    newItem[role] = (role === senioridadeFilter) ? item[role] : 0;
+                });
+                return newItem;
             });
-            return newItem;
-        });
-
-        filteredData.encerramentoSenioridadeData = filteredData.encerramentoSenioridadeData.map(item => {
-            const newItem = { ANOMES_REF: item.ANOMES_REF };
-            ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'].forEach(role => {
-                newItem[role] = (role === senioridadeFilter) ? item[role] : 0;
+            
+            filteredData.encerramentoSenioridadeData = filteredData.encerramentoSenioridadeData.map(item => {
+                const newItem = { ANOMES_REF: item.ANOMES_REF };
+                ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'].forEach(role => {
+                    newItem[role] = (role === senioridadeFilter) ? item[role] : 0;
+                });
+                return newItem;
             });
-            return newItem;
-        });
-    }
-
-    if (complexidadeFilter) {
-        filteredData.cubo2Data = filteredData.cubo2Data.map(item => {
-            const newItem = { ANOMES_REF: item.ANOMES_REF };
-            ['N1', 'N2', 'N3'].forEach(level => {
-                newItem[level] = (level === complexidadeFilter) ? item[level] : 0;
+        }
+        
+        if (complexidadeFilter) {
+            filteredData.cubo2Data = filteredData.cubo2Data.map(item => {
+                const newItem = { ANOMES_REF: item.ANOMES_REF };
+                ['N1', 'N2', 'N3'].forEach(level => {
+                    newItem[level] = (level === complexidadeFilter) ? item[level] : 0;
+                });
+                return newItem;
             });
-            return newItem;
-        });
-        filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.COMPLEXIDADE === complexidadeFilter);
+            filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.COMPLEXIDADE === complexidadeFilter);
+        }
+        
+        console.log("Filtered Data:", filteredData);
+        
+        return filteredData;
     }
-
-    if (areaFilter) {
-        filteredData.acompanhamentoRedistribuicaoData = filteredData.acompanhamentoRedistribuicaoData.filter(item => item.MODULO_CHAMADO === areaFilter);
-    }
-
-    return filteredData;
-    }
-
+     
     function createCharts(data) {
         if (!data) {
             console.error("No data provided to create charts");
@@ -170,14 +163,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function createPendentesRedistribuidasChart(data) {
+        console.log('Chart data before filtering:', data);
+    
         const ctx = document.getElementById('pendentes-redistribuidas-chart').getContext('2d');
-
-        const anomesList = [...new Set(data.map(item => item.ANOMES_ABERTURA))];
+    
+        // Get selected filters
+        const anomesFilter = document.getElementById('anomes-filter').value;
+        const complexidadeFilter = document.getElementById('complexidade-filter').value;
+    
+        // Apply filters to the data
+        let filteredData = data;
+    
+        if (anomesFilter) {
+            filteredData = filteredData.filter(item => item.ANOMES_ABERTURA === anomesFilter);
+        }
+    
+        if (complexidadeFilter) {
+            filteredData = filteredData.filter(item => item.COMPLEXIDADE === complexidadeFilter);
+        }
+    
+        console.log('Filtered chart data:', filteredData);
+    
+        // Get unique ANOMES_ABERTURA and predefined complexidades
+        const anomesList = [...new Set(filteredData.map(item => item.ANOMES_ABERTURA))];
         const complexidades = ['N1', 'N2', 'N3'];
-
+    
+        // Initialize datasets array
         const datasets = complexidades.map(complexidade => {
             const dataCounts = anomesList.map(anomes => {
-                return data.filter(item => item.ANOMES_ABERTURA === anomes && item.COMPLEXIDADE === complexidade).length;
+                const item = filteredData.find(item => item.ANOMES_ABERTURA === anomes);
+                return item ? item[complexidade] || 0 : 0; // Use 0 if no data available
             });
             return {
                 label: complexidade,
@@ -187,11 +202,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 borderWidth: 1
             };
         });
-
+    
+        // Destroy old chart if it exists
         if (chartInstances.pendentesRedistribuidas) {
             chartInstances.pendentesRedistribuidas.destroy();
         }
-
+    
+        // Create new chart
         chartInstances.pendentesRedistribuidas = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -223,12 +240,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
-
+    
     function getColorForComplexidade(complexidade, border = false) {
         const colors = {
-            'N1': 'rgba(54, 162, 235, 0.6)',
-            'N2': 'rgba(255, 99, 132, 0.6)',
-            'N3': 'rgba(75, 192, 192, 0.6)'
+            'N1': 'rgba(54, 162, 235, 0.3)',
+            'N2': 'rgba(255, 99, 132, 0.3)',
+            'N3': 'rgba(75, 192, 192, 0.3)'
         };
         const borderColors = {
             'N1': 'rgba(54, 162, 235, 1)',
@@ -240,38 +257,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createEncerramentosCargoChart(data) {
         const ctx = document.getElementById('encerramentos-cargo-chart').getContext('2d');
-
-        const periods = data.map(item => item.ANOMES_REF);
-
+    
+        // Extract periods and roles from the data
+        const periods = [...new Set(data.map(item => item.ANOMES_REF))];
         const roles = ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'];
-
+    
+        // Generate datasets for each role
         const datasets = roles.map(role => {
             return {
                 label: role,
-                data: data.map(item => item[role] || 0),
+                data: periods.map(period => {
+                    const item = data.find(d => d.ANOMES_REF === period) || {};
+                    return item[role] || 0;
+                }),
                 backgroundColor: getColorForSeniority(role, 0.6),
                 borderColor: getColorForSeniority(role, 1),
                 borderWidth: 1
             };
         });
-
+    
+        // Destroy existing chart instance if it exists
         if (chartInstances.encerramentosCargo) {
             chartInstances.encerramentosCargo.destroy();
         }
-
+    
+        // Create new chart instance
         chartInstances.encerramentosCargo = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: periods,
+                labels: periods, // Set periods (ANOMES_REF) as x-axis labels
                 datasets: datasets
             },
             options: {
+                indexAxis: 'x', // Set to horizontal bars
                 scales: {
                     x: {
                         stacked: true,
                         title: {
                             display: true,
-                            text: 'Período (ANOMES_REF)'
+                            text: 'Período (Ano/Mes)' // Horizontal axis title
                         }
                     },
                     y: {
@@ -279,7 +303,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Número de Encerramentos'
+                            text: 'Número de Encerramentos' // Vertical axis title
                         }
                     }
                 },
@@ -292,11 +316,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                         display: true
                     },
                     datalabels: {
-                        anchor: 'center',
-                        align: 'center',
+                        anchor: 'center',  // Anchor to the center of the bar
+                        align: 'center',   // Align text to the center of the bar
                         color: 'rgba(0, 0, 0, 0.6)',
                         font: {
                             weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value > 0 ? value : null; // Display numbers if they are greater than 0
                         }
                     }
                 },
@@ -323,82 +350,98 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function createCargoCustoChart(data) {
-    const ctx = document.getElementById('cargo-custo-chart').getContext('2d');
-
-    const roles = ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'];
-    const periods = [...new Set(data.map(item => item.ANOMES_STATUS))];
-
-    const datasets = periods.map((period, index) => {
-        const periodData = data.find(item => item.ANOMES_STATUS === period) || {};
-        const values = roles.map(role => parseFloat(periodData[role]) || 0);
-
-        return {
-            label: period,
-            data: values,
-            backgroundColor: getBackgroundColor(index),
-            borderColor: getBorderColor(index),
-            borderWidth: 1
-        };
-    });
-
-    if (chartInstances.cargoCusto) {
-        chartInstances.cargoCusto.destroy();
-    }
-
-    chartInstances.cargoCusto = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: roles,
-            datasets: datasets
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    stacked: true,
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Custo Médio por Demanda'
+        const ctx = document.getElementById('cargo-custo-chart').getContext('2d');
+        
+        // Define roles and retrieve periods from the data
+        const roles = ['Bg', 'Ex', 'Jr', 'Pr', 'Sr'];
+        const periods = [...new Set(data.map(item => item.ANOMES_STATUS))];
+    
+        // Create datasets for each period
+        const datasets = periods.map((period, index) => {
+            const periodData = data.find(item => item.ANOMES_STATUS === period) || {};
+            const values = roles.map(role => parseFloat(periodData[role]) || 0);
+    
+            // Only include datasets where any value is non-zero
+            const hasNonZero = values.some(value => value > 0);
+            
+            return hasNonZero ? {
+                label: period,
+                data: values,
+                backgroundColor: getBackgroundColor(index),
+                borderColor: getBorderColor(index),
+                borderWidth: 1
+            } : null;
+        }).filter(dataset => dataset !== null);
+    
+        // If there are no datasets, do not create or update the chart
+        if (datasets.length === 0) {
+            console.log("No data available for the chart");
+            if (chartInstances.cargoCusto) {
+                chartInstances.cargoCusto.destroy();
+            }
+            return;
+        }
+    
+        // Destroy existing chart if it exists
+        if (chartInstances.cargoCusto) {
+            chartInstances.cargoCusto.destroy();
+        }
+    
+        // Create a new chart instance
+        chartInstances.cargoCusto = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: roles,
+                datasets: datasets
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Custo Médio por Demanda'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return Number.isInteger(value) ? value : null;
+                            }
+                        }
                     },
-                    ticks: {
-                        callback: function(value) {
-                            return Number.isInteger(value) ? value : null;
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Senioridade'
                         }
                     }
                 },
-                y: {
-                    stacked: true,
+                plugins: {
                     title: {
                         display: true,
-                        text: 'Senioridade'
+                        text: 'Senioridade x Custo Médio por Demanda'
+                    },
+                    legend: {
+                        display: true
+                    },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: 'rgba(0, 0, 0, 0.6)',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value > 0 ? value.toFixed(1) : null;
+                        }
                     }
                 }
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Senioridade x Custo Médio por Demanda'
-                },
-                legend: {
-                    display: true
-                },
-            datalabels: {
-                anchor: 'center',
-                align: 'center',
-                color: 'rgba(0, 0, 0, 0.6)',
-                font: {
-                    weight: 'bold'
-                },
-                formatter: function(value) {
-                    return value.toFixed(1);
-                }
-            }
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
-}
+            plugins: [ChartDataLabels]
+        });
+    }
 
     function getBackgroundColor(index) {
     const colors = [
@@ -579,7 +622,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     x: {
                         title: {
                             display: true,
-                            text: 'Período (ANOMES_REF)'
+                            text: 'Período (Ano/Mes)'
                         }
                     }
                 }
