@@ -44,9 +44,7 @@ Escolha a melhor opção para você:
 
 ### Executar o Front-End 🖌
 
-Para visualizar o dashboard, siga uma das opções abaixo:
-
-    1. **Node.js (live-server)**:
+    **Node.js (live-server)**:
         - Certifique-se de que o Node.js está instalado.
         - No terminal, navegue até a pasta frontend 
             ```
@@ -60,11 +58,6 @@ Para visualizar o dashboard, siga uma das opções abaixo:
             ```
             http://127.0.0.1:8080
             ```
-
-    2. **Live Server (VS Code)**:
-        - Abra o projeto no Visual Studio Code.
-        - Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
-        - O navegador será aberto automaticamente com o dashboard em execução.
 
 
 ### Executar o Back-End (Notebooks Jupyter) 👩‍💻
