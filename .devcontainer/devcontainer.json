@@ -1,0 +1,13 @@
+{
+    "name": "Softek-2024",
+    "dockerComposeFile": "../docker-compose.yml",
+    "workspaceFolder": "/workspaces/softek-2024/entrega3-turing-20-09-final",
+    "postStartCommand": "docker-compose up --build",
+    "portsAttributes": {
+      "80": {
+        "label": "Softek Dashboard",
+        "onAutoForward": "openBrowser"
+      }
+    }
+  }
+  

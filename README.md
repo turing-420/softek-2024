@@ -37,3 +37,5 @@ Front-end: páginas HTML, estilos CSS e arquivos de dados JSON para alimentar o 
 Back-end: scripts e notebooks Jupyter para a preparação de dados e modelagem.
 
 A documentação e arquitetura do projeto estão disponíveis nos arquivos `Arquitetura.png`, `DB_Modelagem.png` e `Projeto.pdf`. Esses arquivos fornecem detalhes sobre a arquitetura do sistema, o diagrama Entidade-Relacionamento do banco de dados e uma descrição completa da solução.
+
+[![Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=turing-420/softek-2024&ref=main&devcontainer_path=.devcontainer/devcontainer.json)
